@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankUI {
@@ -23,7 +24,6 @@ public class BankUI {
         System.out.println();
         System.out.print("Option:");
     }
-
     public void createAccount(){
         Scanner scanner = new Scanner(System.in);
 
@@ -69,7 +69,19 @@ public class BankUI {
             }
         }
     }
+    public void displayAllAccounts(){
+        System.out.println("Displaying all account info.");
+        ArrayList<String> accInfos = new ArrayList<>();
 
+        accInfos = bank.getAllAccountInfo();
+        if(accInfos == null){
+            System.out.println("Encountered an error");
+            return;
+        }
+        for(String info : accInfos){
+            System.out.println(info);
+        }
+    }
     public void showExitMessage() {
         System.out.println("Exiting the app...");
     }

@@ -55,4 +55,14 @@ public class Bank {
         Account account = searchForAccount(accNo);
         return account.getBalance();
     }
+
+    public ArrayList<String> getAllAccountInfo() {
+        ArrayList<String> accInfos = new ArrayList<>();
+
+        for(Account account : accounts){
+            accInfos.add(account.toString());
+        }
+
+        return accInfos;
+    }
 }
