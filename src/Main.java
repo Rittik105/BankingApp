@@ -20,7 +20,8 @@ public class Main {
                     break;
                 }
                 case 2: {
-
+                    ui.displayAllAccounts();
+                    break;
                 }
                 case 3: {
 
