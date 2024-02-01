@@ -4,11 +4,11 @@ import Accounts.Account;
 public class Bank {
     ArrayList<Account> accounts = new ArrayList<>();
 
-    public int openNewAccount(int accType, String accName, String contact) {
+    public int openNewAccount(int accType, String accName) {
         int accNo = accounts.size() + 10000;
 
         AccountFactory factory = new AccountFactory();
-        Account newAcc = factory.getNewAccount(accType, accNo, accName, contact);
+        Account newAcc = factory.getNewAccount(accType, accNo, accName);
         if(newAcc == null){
             return -1;
         }
@@ -64,5 +64,20 @@ public class Bank {
         }
 
         return accInfos;
+    }
+
+    public void updateAccountInfo(int accNo, String newName) {
+        Account account = searchForAccount(accNo);
+        account.setAccountName(newName);
+    }
+
+    public void deleteAccount(int accNo) {
+        Account account = searchForAccount(accNo);
+        account.setIsActive(false);
+    }
+
+    public boolean withdrawAmount(int accNo, float amount) {
+        Account account = searchForAccount(accNo);
+        return account.withdraw(amount);
     }
 }

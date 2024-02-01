@@ -3,10 +3,12 @@ import java.util.Scanner;
 
 public class BankUI {
     private Bank bank;
+    private Scanner scanner;
+
     public BankUI(Bank bank){
         this.bank = bank;
+        scanner = new Scanner(System.in);
     }
-
     public void showWelcomeMessage(){
         System.out.print("Welcome to my banking app!!");
     }
@@ -24,9 +26,7 @@ public class BankUI {
         System.out.println();
         System.out.print("Option:");
     }
-    public void createAccount(){
-        Scanner scanner = new Scanner(System.in);
-
+    public void createAccountUI(){
         System.out.println();
         System.out.println("Choose Account Type:");
         System.out.println("1. Savings account");
@@ -41,13 +41,9 @@ public class BankUI {
         String accName = scanner.next();
 
         System.out.println();
-        System.out.print("Enter Contact: ");
-        String contact = scanner.next();
-
-        System.out.println();
         System.out.println("Creating Account...");
 
-        int accNo = bank.openNewAccount(accType, accName, contact);
+        int accNo = bank.openNewAccount(accType, accName);
         if(accNo < 0){
             System.out.println("Account opening failed.");
             return;
@@ -69,8 +65,8 @@ public class BankUI {
             }
         }
     }
-    public void displayAllAccounts(){
-        System.out.println("Displaying all account info.");
+    public void displayAllAccountsUI(){
+        System.out.println("Displaying all account info...");
         ArrayList<String> accInfos = new ArrayList<>();
 
         accInfos = bank.getAllAccountInfo();
@@ -80,6 +76,44 @@ public class BankUI {
         }
         for(String info : accInfos){
             System.out.println(info);
+        }
+    }
+    public void updateAccountUI(){
+        System.out.print("Enter Account No: ");
+        int accNo = scanner.nextInt();
+        System.out.println("New Account Name: ");
+        String newName = scanner.next();
+
+        bank.updateAccountInfo(accNo, newName);
+    }
+    public void deleteAccountUI(){
+        System.out.print("Enter Account Code: ");
+        int accNo = scanner.nextInt();
+        System.out.println("Are you sure you want to delete " + accNo + "?(y/n)");
+        String choice = scanner.next();
+        if(choice.equalsIgnoreCase("y")){
+            bank.deleteAccount(accNo);
+            System.out.println("Account deleted");
+        }
+    }
+    public void depositUI(){
+        System.out.print("Enter Account No: ");
+        int accNo = scanner.nextInt();
+        System.out.print("Enter Amount to deposit: ");
+        float amount = scanner.nextFloat();
+        bank.depositAmount(accNo, amount);
+        System.out.println("Deposit successful. New balance: "+bank.getBalance(accNo));
+    }
+    public void withdrawUI(){
+        System.out.print("Enter Account No: ");
+        int accNo = scanner.nextInt();
+        System.out.print("Enter Amount to withdraw: ");
+        float amount = scanner.nextFloat();
+        if(bank.withdrawAmount(accNo, amount)){
+            System.out.println("Withdrawal successful. New balance: " + bank.getBalance(accNo));
+        }
+        else{
+            System.out.println("Withdrawal denied. Account balance would be less than minimum balance.");
         }
     }
     public void showExitMessage() {
