@@ -56,16 +56,6 @@ public class Bank {
         return account.getBalance();
     }
 
-    public ArrayList<String> getAllAccountInfo() {
-        ArrayList<String> accInfos = new ArrayList<>();
-
-        for(Account account : accounts){
-            accInfos.add(account.toString());
-        }
-
-        return accInfos;
-    }
-
     public void updateAccountInfo(int accNo, String newName) {
         Account account = searchForAccount(accNo);
         account.setAccountName(newName);
@@ -79,5 +69,23 @@ public class Bank {
     public boolean withdrawAmount(int accNo, float amount) {
         Account account = searchForAccount(accNo);
         return account.withdraw(amount);
+    }
+
+    public ArrayList<String> getAllAccountInfo() {
+        ArrayList<String> accInfos = new ArrayList<>();
+
+        for(Account account : accounts){
+            accInfos.add(account.toString());
+        }
+
+        return accInfos;
+    }
+
+    public String getAccountInfo(int accNo){
+        Account account = searchForAccount(accNo);
+        if(account != null)
+            return account.toString();
+        else
+            return "";
     }
 }

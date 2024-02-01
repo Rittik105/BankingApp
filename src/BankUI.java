@@ -116,6 +116,18 @@ public class BankUI {
             System.out.println("Withdrawal denied. Account balance would be less than minimum balance.");
         }
     }
+    public void searchUI(){
+        System.out.println("Enter account no for searching: ");
+        int accNo = scanner.nextInt();
+        String accInfo = bank.getAccountInfo(accNo);
+        if(accInfo.isEmpty()){
+            System.out.println("Account was not found");
+            return;
+        }
+
+        System.out.println("Account found.");
+        System.out.println(accInfo);
+    }
     public void showExitMessage() {
         System.out.println("Exiting the app...");
     }

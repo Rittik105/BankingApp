@@ -40,7 +40,8 @@ public class Main {
                     break;
                 }
                 case "7": {
-
+                    ui.searchUI();
+                    break;
                 }
                 case "8": {
                     ui.showExitMessage();
