@@ -21,21 +21,13 @@ public abstract class Account {
     public int getAccountNo() {
         return accountNo;
     }
-    public String getAccountName() {
-        return accountName;
-    }
     public float getBalance() {
         return balance;
     }
     public float getMinBalance() {
         return minBalance;
     }
-    public String getAccountType() {
-        return accountType;
-    }
-    public Boolean getIsActive() {
-        return isActive;
-    }
+    public boolean getIsActive(){ return this.isActive; }
     public void setAccountName(String newName) {
         this.accountName = newName;
     }
@@ -55,8 +47,6 @@ public abstract class Account {
     }
     @Override
     public String toString(){
-        return accountType +"\t"+ accountNo + "\t" + accountName;
+        return accountType +"  "+ accountNo + "  " + accountName;
     }
-
-
 }

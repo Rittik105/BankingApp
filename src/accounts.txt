@@ -1,0 +1,2 @@
+Savings  10000  rittik
+Current  10001  basak

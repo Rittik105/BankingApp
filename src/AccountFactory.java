@@ -18,4 +18,24 @@ public class AccountFactory {
             return null;
         }
     }
+
+    public Account getNewAccount(String accInfo) {
+        String[] infoArray = accInfo.split("  ");
+        String accType = infoArray[0];
+        int accNo = Integer.parseInt(infoArray[1]);
+        String accName = infoArray[2];
+
+        if(accType.equalsIgnoreCase("Savings")){
+            return new SavingsAccount(accNo, accName);
+        }
+        else if (accType.equalsIgnoreCase("Current")) {
+            return new CurrentAccount(accNo, accName);
+        }
+        else if (accType.equalsIgnoreCase("Salary")) {
+            return new SalaryAccount(accNo, accName);
+        }
+        else {
+            return null;
+        }
+    }
 }

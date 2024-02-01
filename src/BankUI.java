@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankUI {
-    private Bank bank;
-    private Scanner scanner;
+    private final Bank bank;
+    private final Scanner scanner;
 
     public BankUI(Bank bank){
         this.bank = bank;
@@ -24,7 +24,7 @@ public class BankUI {
         System.out.println("7. Search for an account");
         System.out.println("8. Exit");
         System.out.println();
-        System.out.print("Option:");
+        System.out.print("Option: ");
     }
     public void createAccountUI(){
         System.out.println();
@@ -36,11 +36,9 @@ public class BankUI {
         System.out.print("Option: ");
         int accType = scanner.nextInt();
 
-        System.out.println();
         System.out.print("Enter Account Name: ");
         String accName = scanner.next();
 
-        System.out.println();
         System.out.println("Creating Account...");
 
         int accNo = bank.openNewAccount(accType, accName);
@@ -81,10 +79,15 @@ public class BankUI {
     public void updateAccountUI(){
         System.out.print("Enter Account No: ");
         int accNo = scanner.nextInt();
-        System.out.println("New Account Name: ");
+        System.out.print("New Account Name: ");
         String newName = scanner.next();
 
-        bank.updateAccountInfo(accNo, newName);
+        if(bank.updateAccountInfo(accNo, newName)){
+            System.out.println("Successfully updated");
+        }
+        else{
+            System.out.println("No account found");
+        }
     }
     public void deleteAccountUI(){
         System.out.print("Enter Account Code: ");
@@ -92,8 +95,12 @@ public class BankUI {
         System.out.println("Are you sure you want to delete " + accNo + "?(y/n)");
         String choice = scanner.next();
         if(choice.equalsIgnoreCase("y")){
-            bank.deleteAccount(accNo);
-            System.out.println("Account deleted");
+            if(bank.deleteAccount(accNo)){
+                System.out.println("Account deleted");
+            }
+            else{
+                System.out.println("Account does not exist.");
+            }
         }
     }
     public void depositUI(){
@@ -101,23 +108,34 @@ public class BankUI {
         int accNo = scanner.nextInt();
         System.out.print("Enter Amount to deposit: ");
         float amount = scanner.nextFloat();
-        bank.depositAmount(accNo, amount);
-        System.out.println("Deposit successful. New balance: "+bank.getBalance(accNo));
+
+        if(bank.depositAmount(accNo, amount)){
+            System.out.println("Deposit successful. New balance: "+bank.getBalance(accNo));
+        }
+        else{
+            System.out.println("No account found");
+        }
+
+
     }
     public void withdrawUI(){
         System.out.print("Enter Account No: ");
         int accNo = scanner.nextInt();
         System.out.print("Enter Amount to withdraw: ");
         float amount = scanner.nextFloat();
-        if(bank.withdrawAmount(accNo, amount)){
+        int flag = bank.withdrawAmount(accNo, amount);
+        if(flag == 1){
             System.out.println("Withdrawal successful. New balance: " + bank.getBalance(accNo));
         }
-        else{
+        else if(flag == 0){
             System.out.println("Withdrawal denied. Account balance would be less than minimum balance.");
+        }
+        else {
+            System.out.println("Account not found");
         }
     }
     public void searchUI(){
-        System.out.println("Enter account no for searching: ");
+        System.out.print("Enter account no for searching: ");
         int accNo = scanner.nextInt();
         String accInfo = bank.getAccountInfo(accNo);
         if(accInfo.isEmpty()){
@@ -130,6 +148,7 @@ public class BankUI {
     }
     public void showExitMessage() {
         System.out.println("Exiting the app...");
+        bank.saveToFile();
     }
     public void showInvalidChoiceMessage(){
         System.out.println("Not a valid option. Please enter a valid option.");
