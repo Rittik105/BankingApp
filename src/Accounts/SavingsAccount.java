@@ -1,8 +1,8 @@
 package Accounts;
 
 public class SavingsAccount extends Account{
-    public SavingsAccount(int accountNo, String accountName, String contactNo) {
-        super(accountNo, accountName, contactNo);
+    public SavingsAccount(int accountNo, String accountName) {
+        super(accountNo, accountName, "Savings");
         setMinBalance(500);
     }
 }

@@ -3,17 +3,17 @@ package Accounts;
 public abstract class Account {
     private int accountNo;
     private String accountName;
-    private String contactNo;
     private float balance;
     private float minBalance;
     private String accountType;
+    private boolean isActive;
 
-    public Account(int accountNo, String accountName, String contactNo, String accountType){
+    public Account(int accountNo, String accountName, String accountType){
         this.accountNo = accountNo;
         this.accountName = accountName;
-        this.contactNo = contactNo;
         this.accountType = accountType;
         this.balance = 0;
+        this.isActive = true;
     }
     protected void setMinBalance(float minBalance) {
         this.minBalance = minBalance;
@@ -24,9 +24,6 @@ public abstract class Account {
     public String getAccountName() {
         return accountName;
     }
-    public String getContactNo() {
-        return contactNo;
-    }
     public float getBalance() {
         return balance;
     }
@@ -36,11 +33,30 @@ public abstract class Account {
     public String getAccountType() {
         return accountType;
     }
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    public void setAccountName(String newName) {
+        this.accountName = newName;
+    }
+    public void setIsActive(boolean b) {
+        this.isActive = b;
+    }
     public void deposit(float amount){
         this.balance += amount;
     }
+    public boolean withdraw(float amount){
+        if(this.balance - amount > this.minBalance){
+            this.balance -= amount;
+            return true;
+        }
+
+        return false;
+    }
     @Override
     public String toString(){
-        return accountType +"\t"+ accountNo + "\t" + accountName + "\t" + contactNo;
+        return accountType +"\t"+ accountNo + "\t" + accountName;
     }
+
+
 }

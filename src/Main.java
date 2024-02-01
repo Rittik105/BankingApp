@@ -8,37 +8,41 @@ public class Main {
 
         ui.showWelcomeMessage();
 
-        int choice;
+        String choice;
         Scanner scanner = new Scanner(System.in);
         do{
             ui.showMenu();
-            choice = scanner.nextInt();
+            choice = scanner.next();
 
             switch (choice) {
-                case 1: {
-                    ui.createAccount();
+                case "1": {
+                    ui.createAccountUI();
                     break;
                 }
-                case 2: {
-                    ui.displayAllAccounts();
+                case "2": {
+                    ui.displayAllAccountsUI();
                     break;
                 }
-                case 3: {
+                case "3": {
+                    ui.updateAccountUI();
+                    break;
+                }
+                case "4": {
+                    ui.deleteAccountUI();
+                    break;
+                }
+                case "5": {
+                    ui.depositUI();
+                    break;
+                }
+                case "6": {
+                    ui.withdrawUI();
+                    break;
+                }
+                case "7": {
 
                 }
-                case 4: {
-
-                }
-                case 5: {
-
-                }
-                case 6: {
-
-                }
-                case 7: {
-
-                }
-                case 8: {
+                case "8": {
                     ui.showExitMessage();
                     break;
                 }
@@ -47,7 +51,7 @@ public class Main {
                 }
             }
         }
-        while(choice != 8);
+        while(!choice.equals("8"));
 
         scanner.close();
     }
