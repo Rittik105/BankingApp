@@ -16,7 +16,8 @@ public class Main {
 
             switch (choice) {
                 case 1: {
-
+                    ui.createAccount();
+                    break;
                 }
                 case 2: {
 
