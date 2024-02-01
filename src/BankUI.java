@@ -33,7 +33,7 @@ public class BankUI {
         System.out.println("2. Current accounts");
         System.out.println("3. Salary account");
         System.out.println();
-        System.out.print("Option:");
+        System.out.print("Option: ");
         int accType = scanner.nextInt();
 
         System.out.println();
@@ -41,7 +41,7 @@ public class BankUI {
         String accName = scanner.next();
 
         System.out.println();
-        System.out.print("Enter Contact:");
+        System.out.print("Enter Contact: ");
         String contact = scanner.next();
 
         System.out.println();
@@ -53,8 +53,21 @@ public class BankUI {
             return;
         }
 
-        System.out.println("Account opened successfully. Your Account No is: "+accNo);
-
+        System.out.println("Account opened successfully. Your Account No is: " + accNo);
+        System.out.println("You need to make a initial deposit. Minimum Balance is: " + bank.getMinBalance(accNo));
+        while(true){
+            System.out.print("Enter deposit amount: ");
+            float iniDeposit = scanner.nextFloat();
+            boolean success = bank.depositInitialAmount(accNo, iniDeposit);
+            if(success){
+                System.out.println("Deposit successful.");
+                System.out.println("Your balance: " + bank.getBalance(accNo));
+                break;
+            }
+            else{
+                System.out.println("Amount is lower than minimum balance");
+            }
+        }
     }
 
     public void showExitMessage() {

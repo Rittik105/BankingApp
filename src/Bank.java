@@ -36,4 +36,23 @@ public class Bank {
 
         return null;
     }
+
+    public boolean depositInitialAmount(int accNo, float iniDeposit) {
+        if(getMinBalance(accNo) < iniDeposit){
+            depositAmount(accNo, iniDeposit);
+            return true;
+        }
+
+        return false;
+    }
+
+    public void depositAmount(int accNo, float amount){
+        Account account = searchForAccount(accNo);
+        account.deposit(amount);
+    }
+
+    public float getBalance(int accNo){
+        Account account = searchForAccount(accNo);
+        return account.getBalance();
+    }
 }
